@@ -177,7 +177,7 @@ function hideGameover(){
 const timer = document.getElementById('timer')
 
 function timerGame(){
-  let s = 5;
+  let s = 45;
   let intervalTimer = setInterval(() => {
     timer.innerHTML = --s
 
