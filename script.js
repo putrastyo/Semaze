@@ -97,12 +97,12 @@ ctx.fillRect(xGreen, yGreen, 40, 40)
 document.addEventListener('DOMContentLoaded', function(){
   const spawn = document.createElement('div');
   spawn.style.position = 'absolute';
-  spawn.style.zIndex = 9999;
   spawn.style.top = 1*46+'px';
   spawn.style.left = 5*40+'px';
   spawn.style.width = '26px';
   spawn.style.height = '26px';
   spawn.style.backgroundColor = 'red';
+  spawn.style.zIndex = 999;
   overlay.appendChild(spawn)
 })
 
@@ -151,7 +151,9 @@ function update(chara){
       chara.y+chara.h-1 >= data.y &&      
       chara.y+1<= data.y + 40 && 
       chara.x+chara.w-2 >= data.x
-    ){gameover.style.display = 'flex'}
+    ){
+      gameover.style.display = 'flex'
+    }
 
     if(chara.y + chara.h-10 >= yGreen && chara.x >= xGreen){
       win.style.display = 'flex'
@@ -162,9 +164,11 @@ function update(chara){
 
 const playAgain = document.getElementById('play-again')
 const retry = document.getElementById('retry')
+const retry2 = document.getElementById('retry-timeout')
 
 playAgain.addEventListener('click', hideGameover)
 retry.addEventListener('click', hideGameover)
+retry2.addEventListener('click', hideGameover)
 
 function hideGameover(){
   location.reload()
@@ -173,7 +177,7 @@ function hideGameover(){
 const timer = document.getElementById('timer')
 
 function timerGame(){
-  let s = 2;
+  let s = 5;
   let intervalTimer = setInterval(() => {
     timer.innerHTML = --s
 
@@ -182,10 +186,8 @@ function timerGame(){
       timeout.style.display = 'flex'
     } else if (win.style.display == 'flex'){
       clearInterval(intervalTimer)
-      win.style.display = 'flex'
     } else if (gameover.style.display == 'flex'){
       clearInterval(intervalTimer)
-      gameover.style.display = 'flex'
     }
   }, 1000);
 }

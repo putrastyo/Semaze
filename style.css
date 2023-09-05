@@ -39,13 +39,26 @@
 
 .alert-box {
   text-align: center;
-  color: white;
   font-weight: bold;
   font-size: 40px;
 }
 
-.alert-lose {background: rgba(255, 2, 2, 0.9)}
-.alert-win {background: rgba(34, 196, 6, 0.9)}
+.alert-lose {
+  background: rgb(0,0,0,.9);
+  color: red;
+  z-index: 999;
+}
+.alert-win {
+  background: rgb(34, 196, 6);
+  color: white;
+  z-index: 999;
+}
+
+.alert-timeout {
+  background: red;
+  color: white;
+  z-index: 998;
+}
 
 .alert-box button {
   padding: 10px 16px;
