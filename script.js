@@ -8,6 +8,9 @@ let counter = 3
 
 function playGame(e){
   if(e.keyCode == 32){
+    setTimeout(() => {
+      timerGame()
+    }, 4000);
     countdown.style.fontSize = '100px'
     countdown.innerHTML = '3'
 
@@ -165,4 +168,21 @@ function hideGameover(){
   location.reload()
   gameover.style.display = 'none'
   win.style.display = 'none'
+}
+
+const timer = document.getElementById('timer')
+
+function timerGame(){
+  let s = 45;
+  let intervalTimer = setInterval(() => {
+    timer.innerHTML = --s
+
+    if(s == 0 || gameover.style.display == 'flex'){
+      clearInterval(intervalTimer)
+      gameover.style.display = 'flex'
+    } else if (win.style.display == 'flex'){
+      clearInterval(intervalTimer)
+      win.style.display = 'flex'
+    }
+  }, 1000);
 }
