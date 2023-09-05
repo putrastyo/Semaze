@@ -97,6 +97,7 @@ ctx.fillRect(xGreen, yGreen, 40, 40)
 document.addEventListener('DOMContentLoaded', function(){
   const spawn = document.createElement('div');
   spawn.style.position = 'absolute';
+  spawn.style.zIndex = 9999;
   spawn.style.top = 1*46+'px';
   spawn.style.left = 5*40+'px';
   spawn.style.width = '26px';
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // MOUSE ACTION
 const span = document.getElementById('span')
 const overlayRect = overlay.getBoundingClientRect()
+const timeout = document.getElementById('timeout')
 const gameover = document.getElementById('gameover')
 const win = document.getElementById('win')
 
@@ -166,23 +168,24 @@ retry.addEventListener('click', hideGameover)
 
 function hideGameover(){
   location.reload()
-  gameover.style.display = 'none'
-  win.style.display = 'none'
 }
 
 const timer = document.getElementById('timer')
 
 function timerGame(){
-  let s = 45;
+  let s = 2;
   let intervalTimer = setInterval(() => {
     timer.innerHTML = --s
 
-    if(s == 0 || gameover.style.display == 'flex'){
+    if(s == 0){
       clearInterval(intervalTimer)
-      gameover.style.display = 'flex'
+      timeout.style.display = 'flex'
     } else if (win.style.display == 'flex'){
       clearInterval(intervalTimer)
       win.style.display = 'flex'
+    } else if (gameover.style.display == 'flex'){
+      clearInterval(intervalTimer)
+      gameover.style.display = 'flex'
     }
   }, 1000);
 }
