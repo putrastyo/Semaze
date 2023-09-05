@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEMAZE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="play">
+    <h1 id="count">Press 'Spacebar' to play...</h1>
+  </div>
+  <div class="alert" id="win">
+    <div class="alert-box">
+      <h1>YOU WON!</h1>
+      <button id="play-again">play again</button>
+    </div>
+  </div>
+
+  <div class="alert" id="gameover">
+    <div class="alert-box">
+      <h1>GAMEOVER</h1>
+      <button id="retry">RETRY</button>
+    </div>
+  </div>
+
+  <div id="container">
+    <canvas id="canvas"></canvas>
+    <div id="overlay"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
