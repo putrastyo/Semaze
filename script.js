@@ -1,37 +1,46 @@
-// PLAY GAME
+// RIGHT CLICK DISABLE
+document.addEventListener('contextmenu',e=>e.preventDefault()) 
 
-window.addEventListener('keydown', playGame)
+// PLAY GAME
+const playButton = document.getElementById('play-btn')
+playButton.addEventListener('click', playGame)
+
 const countdown = document.getElementById('count')
 const play = document.getElementById('play')
+
+const gameMenu = document.getElementById('game-menu')
 
 let counter = 3
 
 function playGame(e){
-  if(e.keyCode == 32){
+  playButton.style.display = 'none'
+  gameMenu.style.display = 'none'
+  setTimeout(() => {
+    spawnChar.style.display = 'none'
+    timerGame()
+  }, 4000);
+  countdown.style.fontSize = '100px'
+  countdown.innerHTML = '3'
+  getReady.style.display = 'block'
+
+  let count = setInterval(() => {
+    // if(counter <= 1){
+    //   clearInterval(count)
+    // }
+
     setTimeout(() => {
-      timerGame()
-    }, 4000);
-    countdown.style.fontSize = '100px'
-    countdown.innerHTML = '3'
+      clearInterval(count)
+      countdown.innerHTML = 'START!'
+    }, 2000);
 
-    let count = setInterval(() => {
-      // if(counter <= 1){
-      //   clearInterval(count)
-      // }
+    setTimeout(() => {
+      play.style.display = 'none'
+      getReady.style.display = 'none'
+    }, 3000);
 
-      setTimeout(() => {
-        clearInterval(count)
-        countdown.innerHTML = 'START!'
-      }, 2000);
-
-      setTimeout(() => {
-        play.style.display = 'none'
-      }, 3000);
-
-      --counter
-      countdown.innerHTML = counter 
-    }, 1000)
-  }
+    --counter
+    countdown.innerHTML = counter 
+  }, 1000)
 }
 
 const canvas = document.getElementById("canvas");
@@ -61,10 +70,17 @@ const maze = [
     [1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
 ];
 
+// let pattern = ctx.createPattern(air, 'repeat');
+// ctx.fillStyle = pattern // Warna tembok
+// ctx.drawImage(air, 40, 40);
 const tembok = []
+
+const air = new Image()
+air.src = 'images/air.png'
+
 function drawMaze() {
 
   for (let i = 0; i < maze.length; i++) {
@@ -72,12 +88,16 @@ function drawMaze() {
       let y = i * 40
       let x = j * 40
       if (maze[i][j] === 1) { 
-        ctx.fillStyle = "black"; // Warna tembok
         tembok.push({x: x, y: y})
-      } else {
+        ctx.fillStyle = "black"; // Warna TEMBOK
+      } else if (maze[i][j] === 0) {
         ctx.fillStyle = "white"; // Warna jalur
+      } else {
+        ctx.fillStyle = "blue"; // Warna FINISH
       }
+
       ctx.fillRect(x , y, 40, 40);
+
     }
   }
 }
@@ -87,23 +107,29 @@ drawMaze();
 // ctx.fillStyle = 'red'
 // ctx.fillRect(204,46,26,26)
 
-ctx.fillStyle = 'green'
+ctx.fillStyle = 'grey'
 
 const xGreen = 920;
 const yGreen = 520;
 ctx.fillRect(xGreen, yGreen, 40, 40)
 
 // SPAWN CHARACTER
+const getReady = document.getElementById('getReady');
+
 document.addEventListener('DOMContentLoaded', function(){
   const spawn = document.createElement('div');
   spawn.style.position = 'absolute';
-  spawn.style.top = 1*46+'px';
-  spawn.style.left = 5*40+'px';
-  spawn.style.width = '26px';
-  spawn.style.height = '26px';
-  spawn.style.backgroundColor = 'red';
-  spawn.style.zIndex = 999;
-  overlay.appendChild(spawn)
+  spawn.style.top = 1*46+(overlayRect.top)+'px';
+  spawn.style.left = 5*40+(overlayRect.left)+'px';
+  spawn.style.width = '28px';
+  spawn.style.height = '28px';
+  spawn.style.backgroundImage = "url('images/air.png')";
+  spawn.id = 'spawnChar'
+  const spawnChar = document.getElementById('spawnChar')
+
+  getReady.style.top = 1*46+(overlayRect.top)+'px';
+  getReady.style.left = 5*40+(overlayRect.left)+'px';
+  document.body.appendChild(spawn);
 })
 
 // MOUSE ACTION
@@ -113,7 +139,22 @@ const timeout = document.getElementById('timeout')
 const gameover = document.getElementById('gameover')
 const win = document.getElementById('win')
 
-overlay.addEventListener('mousemove', function(e){
+overlay.addEventListener('mousemove', charMove)
+
+const playAgain = document.getElementById('play-again')
+const retry = document.getElementById('retry')
+const retry2 = document.getElementById('retry-timeout')
+
+playAgain.addEventListener('click', hideGameover)
+retry.addEventListener('click', hideGameover)
+retry2.addEventListener('click', hideGameover)
+
+const timer = document.getElementById('timer')
+function hideGameover(){
+  location.reload()
+}
+
+function charMove(e){
   let cursorX = e.clientX - overlayRect.left;
   let cursorY = e.clientY - overlayRect.top;
   
@@ -133,12 +174,8 @@ overlay.addEventListener('mousemove', function(e){
   cursorBox.style.left = cursorX - 15 + 'px';
   cursorBox.style.width = char.w + 'px';
   cursorBox.style.height = char.h + 'px';
-  cursorBox.style.backgroundColor = 'red';
+  cursorBox.style.backgroundImage = "url('images/air.png')";
   overlay.appendChild(cursorBox);
-})
-
-function charMove(){
-
 }
 
 function update(chara){
@@ -162,22 +199,8 @@ function update(chara){
 
 }
 
-const playAgain = document.getElementById('play-again')
-const retry = document.getElementById('retry')
-const retry2 = document.getElementById('retry-timeout')
-
-playAgain.addEventListener('click', hideGameover)
-retry.addEventListener('click', hideGameover)
-retry2.addEventListener('click', hideGameover)
-
-function hideGameover(){
-  location.reload()
-}
-
-const timer = document.getElementById('timer')
-
 function timerGame(){
-  let s = 45;
+  let s = 50;
   let intervalTimer = setInterval(() => {
     timer.innerHTML = --s
 

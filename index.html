@@ -7,13 +7,36 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <audio id="bgm" autoplay loop>
+    <source src="audio/play.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- timer -->
   <div id="timer">
-    45
+    50
   </div>
 
+  <!-- game menu -->
   <div id="play">
-    <h1 id="count">Press 'Spacebar' to play...</h1>
+    <h1 id="count"></h1>
+    <div id="game-menu">
+      <div class="logo"></div>
+
+      <div class="dialog">
+        <div class="dialog-box">
+          <div class="dialog-left">
+            
+          </div>
+          <div class="dialog-right">
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="play-btn">GO</button>
   </div>
+
   <div class="alert alert-win" id="win">
     <div class="alert-box">
       <h1 style="margin-bottom: 60px;">YOU MADE IT!</h1>
@@ -38,6 +61,9 @@
   <div id="container">
     <canvas id="canvas"></canvas>
     <div id="overlay"></div>
+    <div id="getReady">
+      <span>🎯 <br><br>Place your cursor here!!!</span>
+    </div>
   </div>
 
   <script src="script.js"></script>
