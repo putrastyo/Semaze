@@ -23,6 +23,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: crosshair;
+  transition: 3s;
 }
 
 #gameover, .alert, #alert {

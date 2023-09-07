@@ -5,38 +5,42 @@ document.addEventListener('contextmenu',e=>e.preventDefault())
 const playButton = document.getElementById('play-btn')
 playButton.addEventListener('click', playGame)
 
+// AUDIO
+const bgmGamemenu = document.getElementById('bgm-gameMenu')
+const bgmPlay = document.getElementById('bgm-play')
+const sfxLose = document.getElementById('sfx-lose')
+const sfxWin = document.getElementById('sfx-win')
+const sfxCrowded = document.getElementById('sfx-crowded')
+
 const countdown = document.getElementById('count')
 const play = document.getElementById('play')
 
 const gameMenu = document.getElementById('game-menu')
 
-let counter = 3
-
+let counter = 5
 function playGame(e){
   playButton.style.display = 'none'
   gameMenu.style.display = 'none'
   setTimeout(() => {
+    bgmGamemenu.pause()
+    bgmPlay.play()
     spawnChar.style.display = 'none'
     timerGame()
-  }, 4000);
+  }, 6000);
   countdown.style.fontSize = '100px'
-  countdown.innerHTML = '3'
+  countdown.innerHTML = '5'
   getReady.style.display = 'block'
 
   let count = setInterval(() => {
-    // if(counter <= 1){
-    //   clearInterval(count)
-    // }
-
     setTimeout(() => {
       clearInterval(count)
       countdown.innerHTML = 'START!'
-    }, 2000);
+    }, 4000);
 
     setTimeout(() => {
       play.style.display = 'none'
       getReady.style.display = 'none'
-    }, 3000);
+    }, 5000);
 
     --counter
     countdown.innerHTML = counter 
@@ -116,7 +120,7 @@ ctx.fillRect(xGreen, yGreen, 40, 40)
 // SPAWN CHARACTER
 const getReady = document.getElementById('getReady');
 
-document.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('load', function(){
   const spawn = document.createElement('div');
   spawn.style.position = 'absolute';
   spawn.style.top = 1*46+(overlayRect.top)+'px';
@@ -130,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function(){
   getReady.style.top = 1*46+(overlayRect.top)+'px';
   getReady.style.left = 5*40+(overlayRect.left)+'px';
   document.body.appendChild(spawn);
+  bgmGamemenu.play()
 })
 
 // MOUSE ACTION
@@ -190,10 +195,15 @@ function update(chara){
       chara.x+chara.w-2 >= data.x
     ){
       gameover.style.display = 'flex'
+      sfxLose.play()
+      bgmPlay.pause()
     }
-
+    
     if(chara.y + chara.h-10 >= yGreen && chara.x >= xGreen){
       win.style.display = 'flex'
+      sfxWin.play()
+      sfxCrowded.play()
+      bgmPlay.pause()
     }
   })
 
