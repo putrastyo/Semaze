@@ -125,8 +125,8 @@ window.addEventListener('load', function(){
   spawn.style.position = 'absolute';
   spawn.style.top = 1*46+(overlayRect.top)+'px';
   spawn.style.left = 5*40+(overlayRect.left)+'px';
-  spawn.style.width = '28px';
-  spawn.style.height = '28px';
+  spawn.style.width = '18px';
+  spawn.style.height = '18px';
   spawn.style.backgroundImage = "url('images/air.png')";
   spawn.id = 'spawnChar'
   const spawnChar = document.getElementById('spawnChar')
@@ -167,8 +167,8 @@ function charMove(e){
   const char = {
     x: cursorX-15+1,
     y: cursorY-15+2,
-    w: 28,
-    h: 28
+    w: 18,
+    h: 18
   }
 
   update(char);
