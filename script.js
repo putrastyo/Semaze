@@ -217,6 +217,8 @@ function timerGame(){
     if(s == 0){
       clearInterval(intervalTimer)
       timeout.style.display = 'flex'
+      sfxLose.play()
+      bgmPlay.pause()
     } else if (win.style.display == 'flex'){
       clearInterval(intervalTimer)
     } else if (gameover.style.display == 'flex'){
