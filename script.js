@@ -168,7 +168,7 @@ function charMove(e){
     x: cursorX-15+1,
     y: cursorY-15+2,
     w: 18,
-    h: 18
+    h: 22
   }
 
   update(char);
