@@ -126,7 +126,7 @@ window.addEventListener('load', function(){
   spawn.style.top = 1*46+(overlayRect.top)+'px';
   spawn.style.left = 5*40+(overlayRect.left)+'px';
   spawn.style.width = '18px';
-  spawn.style.height = '18px';
+  spawn.style.height = '22px';
   spawn.style.backgroundImage = "url('images/air.png')";
   spawn.id = 'spawnChar'
   const spawnChar = document.getElementById('spawnChar')
