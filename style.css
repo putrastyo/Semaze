@@ -27,7 +27,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  cursor: crosshair;
   transition: 3s;
 }
 
@@ -108,7 +107,7 @@
   z-index: 9999;
   font-family: Arial, Helvetica, sans-serif;
   display: none;
-  cursor: crosshair;
+  cursor: default;
 }
 
 button#play-btn {

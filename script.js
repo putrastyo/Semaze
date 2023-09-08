@@ -77,13 +77,10 @@ const maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
 ];
 
-// let pattern = ctx.createPattern(air, 'repeat');
-// ctx.fillStyle = pattern // Warna tembok
-// ctx.drawImage(air, 40, 40);
 const tembok = []
 
-const air = new Image()
-air.src = 'images/air.png'
+const charImage = new Image()
+charImage.src = 'images/char.png'
 
 function drawMaze() {
 
@@ -97,7 +94,7 @@ function drawMaze() {
       } else if (maze[i][j] === 0) {
         ctx.fillStyle = "white"; // Warna jalur
       } else {
-        ctx.fillStyle = "blue"; // Warna FINISH
+        ctx.fillStyle = "yellow"; // Warna FINISH
       }
 
       ctx.fillRect(x , y, 40, 40);
@@ -111,7 +108,7 @@ drawMaze();
 // ctx.fillStyle = 'red'
 // ctx.fillRect(204,46,26,26)
 
-ctx.fillStyle = 'grey'
+ctx.fillStyle = 'red'
 
 const xGreen = 920;
 const yGreen = 520;
@@ -127,7 +124,8 @@ window.addEventListener('load', function(){
   spawn.style.left = 5*40+(overlayRect.left)+'px';
   spawn.style.width = '22px';
   spawn.style.height = '18px';
-  spawn.style.backgroundImage = "url('images/air.png')";
+  spawn.style.backgroundImage = "url('images/char.png')";
+  spawn.style.backgroundSize = 'cover';
   spawn.id = 'spawnChar'
   const spawnChar = document.getElementById('spawnChar')
 
@@ -179,7 +177,8 @@ function charMove(e){
   cursorBox.style.left = cursorX - 15 + 'px';
   cursorBox.style.width = char.w + 'px';
   cursorBox.style.height = char.h + 'px';
-  cursorBox.style.backgroundImage = "url('images/air.png')";
+  cursorBox.style.backgroundImage = "url('images/char.png')";
+  cursorBox.style.backgroundSize = 'cover';
   overlay.appendChild(cursorBox);
 }
 
@@ -210,7 +209,7 @@ function update(chara){
 }
 
 function timerGame(){
-  let s = 50;
+  let s = 40;
   let intervalTimer = setInterval(() => {
     timer.innerHTML = --s
 
