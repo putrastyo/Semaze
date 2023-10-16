@@ -24,9 +24,11 @@ function playGame(e){
   setTimeout(() => {
     bgmGamemenu.pause()
     bgmPlay.play()
-    spawnChar.style.display = 'none'
     timerGame()
   }, 6000);
+  setTimeout(() => {
+    spawnChar.style.display = 'none'
+  }, 6300);
   countdown.style.fontSize = '100px'
   countdown.innerHTML = '5'
   getReady.style.display = 'block'
@@ -74,7 +76,7 @@ const maze = [
     [1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
 ];
 
 const tembok = []
@@ -94,7 +96,7 @@ function drawMaze() {
       } else if (maze[i][j] === 0) {
         ctx.fillStyle = "white"; // Warna jalur
       } else {
-        ctx.fillStyle = "yellow"; // Warna FINISH
+        ctx.fillStyle = "green"; // Warna FINISH
       }
 
       ctx.fillRect(x , y, 40, 40);
@@ -108,7 +110,7 @@ drawMaze();
 // ctx.fillStyle = 'red'
 // ctx.fillRect(204,46,26,26)
 
-ctx.fillStyle = 'red'
+ctx.fillStyle = 'green'
 
 const xGreen = 920;
 const yGreen = 520;
@@ -127,11 +129,22 @@ window.addEventListener('load', function(){
   spawn.style.backgroundImage = "url('images/char.png')";
   spawn.style.backgroundSize = 'cover';
   spawn.id = 'spawnChar'
-  const spawnChar = document.getElementById('spawnChar')
 
+  const cust = document.createElement('div');
+  cust.style.position = 'absolute';
+  cust.style.top = 12*47+(overlayRect.top)+'px';
+  cust.style.left = 23*40+4+(overlayRect.left)+'px';
+  cust.style.width = '30px';
+  cust.style.height = '30px';
+  cust.style.backgroundImage = "url('images/cust_pixel.png')";
+  cust.style.backgroundSize = 'cover';
+  cust.id = 'custChar'
+  
+  const spawnChar = document.getElementById('spawnChar')
   getReady.style.top = 1*46+(overlayRect.top)+'px';
   getReady.style.left = 5*40+(overlayRect.left)+'px';
   document.body.appendChild(spawn);
+  document.body.appendChild(cust);
   bgmGamemenu.play()
 })
 
@@ -215,7 +228,7 @@ function timerGame(){
 
     if(s == 0){
       clearInterval(intervalTimer)
-      timeout.style.display = 'flex'
+      gameover.style.display = 'flex'
       sfxLose.play()
       bgmPlay.pause()
     } else if (win.style.display == 'flex'){
