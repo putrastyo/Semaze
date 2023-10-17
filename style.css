@@ -132,9 +132,10 @@ button#play-btn {
 }
 
 .logo {
-  width: 400px;
-  height: 80px;
-  background: orange;
+  width: 180px;
+  height: 90px;
+  background-image: url('images/logo-semaze.png');
+  background-size: cover;
   position: absolute;
   top: 20px;
   left: 50%;
